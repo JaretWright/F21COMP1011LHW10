@@ -4,6 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class APIUtility {
 
@@ -30,5 +37,29 @@ public class APIUtility {
         }
 
         return result;
+    }
+
+    /**
+     * This method will call the OMBD API and return an OMDBResponse object
+     */
+    public static OMDBResponse getMoviesFromAPI(String searchText) throws IOException, InterruptedException {
+        OMDBResponse result = null;
+
+        searchText = searchText.replace(" ", "%20");
+
+        //this is the URL that we put into the Browser
+        String uri = "http://www.omdbapi.com/?apikey=4a1010ab&s="+searchText;
+
+        //This snippet is how Java makes the http request and stores the response in a file
+        //called "apiResponse.json"
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(uri)).build();
+
+        HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandlers
+                                            .ofFile(Paths.get("apiResponse.json")));
+
+        //using our existing method to read the JSON and create a OMDBResponse object
+        result = getMoviesFromJSON();
+        return null;
     }
 }
