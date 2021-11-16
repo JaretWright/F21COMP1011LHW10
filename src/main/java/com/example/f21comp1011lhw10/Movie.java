@@ -57,4 +57,9 @@ public class Movie {
     public void setPoster(String poster) {
         this.poster = poster;
     }
+
+    public String toString()
+    {
+        return String.format("%s-%s",title, year);
+    }
 }
