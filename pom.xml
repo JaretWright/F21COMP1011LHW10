@@ -72,7 +72,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.f21comp1011lhw10/com.example.f21comp1011lhw10.HelloApplication
+                            <mainClass>com.example.f21comp1011lhw10/com.example.f21comp1011lhw10.Main
                             </mainClass>
                         </configuration>
                     </execution>

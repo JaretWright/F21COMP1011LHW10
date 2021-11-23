@@ -38,7 +38,7 @@
             <right>
                 <StackPane BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="getDetailsButton" mnemonicParsing="false" text="Get More Detials -&gt;" />
+                        <Button fx:id="getDetailsButton" mnemonicParsing="false" onAction="#getMovieDetails" text="Get More Detials -&gt;" />
                     </children>
                 </StackPane>
             </right>

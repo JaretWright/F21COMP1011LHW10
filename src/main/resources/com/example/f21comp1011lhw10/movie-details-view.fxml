@@ -17,7 +17,7 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <Label id="header" text="Movie Name" BorderPane.alignment="CENTER" />
+            <Label id="header" fx:id="titleLabel" text="Movie Name" BorderPane.alignment="CENTER" />
          </top>
          <left>
             <GridPane prefHeight="542.0" prefWidth="461.0" BorderPane.alignment="CENTER">
@@ -57,7 +57,7 @@
             </ImageView>
          </right>
          <bottom>
-            <Button mnemonicParsing="false" text="Return to Search" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#backToSearch" text="Return to Search" BorderPane.alignment="CENTER" />
          </bottom>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

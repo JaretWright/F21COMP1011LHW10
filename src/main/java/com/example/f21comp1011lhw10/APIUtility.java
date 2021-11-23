@@ -11,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 public class APIUtility {
 
@@ -54,12 +55,29 @@ public class APIUtility {
         //called "apiResponse.json"
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(uri)).build();
-
         HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandlers
                                             .ofFile(Paths.get("apiResponse.json")));
 
         //using our existing method to read the JSON and create a OMDBResponse object
         result = getMoviesFromJSON();
         return result;
+    }
+
+    /**
+     * This method will return the movie details if given a specific movieID
+     */
+    public static MovieDetail getMovieDetail(String movieID) throws IOException, InterruptedException {
+        movieID = movieID.trim();
+
+        String uri = "http://www.omdbapi.com/?apikey=4a1010ab&i="+movieID;
+
+        //Create the client, request and response to the API
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(uri)).build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        //Use the GSON library to parse the JSON returned into an instance of the MovieDetail class
+        Gson gson = new Gson();
+        return gson.fromJson(response.body(), MovieDetail.class);
     }
 }

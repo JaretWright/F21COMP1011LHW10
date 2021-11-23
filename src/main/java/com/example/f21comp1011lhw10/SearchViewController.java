@@ -66,5 +66,10 @@ public class SearchViewController implements Initializable {
                 }
         );
     }
+
+    @FXML
+    private void getMovieDetails(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "movie-details-view.fxml","Movie Details!");
+    }
 }
 
