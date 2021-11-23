@@ -60,6 +60,6 @@ public class APIUtility {
 
         //using our existing method to read the JSON and create a OMDBResponse object
         result = getMoviesFromJSON();
-        return null;
+        return result;
     }
 }
