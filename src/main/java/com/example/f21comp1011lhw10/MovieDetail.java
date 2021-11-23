@@ -20,7 +20,7 @@ public class MovieDetail {
     @SerializedName("Actors")
     private String actors;
 
-    @SerializedName("Boxoffice")
+    @SerializedName("BoxOffice")
     private String boxOffice;
 
     @SerializedName("Rated")

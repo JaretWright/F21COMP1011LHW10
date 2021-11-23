@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MovieDetailsController implements Initializable {
+public class MovieDetailsController implements Initializable, InitializesMovie {
 
     @FXML
     private Label titleLabel;
@@ -45,7 +45,7 @@ public class MovieDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        getMovieDetails("tt1731141");
+
     }
 
     public void getMovieDetails(String movieID)

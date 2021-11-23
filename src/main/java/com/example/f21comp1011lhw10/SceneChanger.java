@@ -25,6 +25,10 @@ public class SceneChanger {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
         Scene scene = new Scene(fxmlLoader.load());
 
+        //get the controller for the destination and pass in the movie id
+        InitializesMovie controller = fxmlLoader.getController();
+        controller.getMovieDetails(movieID);
+
         //get the stage from the ActionEvent
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
