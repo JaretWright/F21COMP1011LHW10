@@ -1,13 +1,11 @@
 package com.example.f21comp1011lhw10;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,6 +29,9 @@ public class SearchViewController implements Initializable {
 
     @FXML
     private Label errMsgLabel;
+
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     void getSearchResults(ActionEvent event) throws IOException, InterruptedException {
@@ -57,12 +58,39 @@ public class SearchViewController implements Initializable {
         initialMovieDataListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, old, movieSelected) -> {
                     getDetailsButton.setVisible(true);
-                    try {
-                        posterImageView.setImage(new Image(movieSelected.getPoster()));
-                    } catch (Exception e)
-                    {
-                        posterImageView.setImage(new Image(getClass().getResourceAsStream("default-movie.png")));
-                    }
+                    Thread fetchPosterThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            double progress = 0;
+                            for (int i=0; i<=10; i++)
+                            {
+                                System.out.println(progress);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                progress += 0.1;
+
+                            final double reportedProgress = progress;
+
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(reportedProgress);
+                                    if (reportedProgress >= .9)
+                                        try{
+                                            progressBar.setVisible(false);
+                                            posterImageView.setImage(new Image(movieSelected.getPoster()));
+                                        }catch (Exception e)
+                                        {
+                                            posterImageView.setImage(new Image(getClass().getResourceAsStream("default-movie.png")));
+                                        }
+                                }
+                            });
+                        }}
+                    });
+                    fetchPosterThread.start();
                 }
         );
     }
